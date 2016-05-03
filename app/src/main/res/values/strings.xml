@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Cat of the Day</string>
+    <string name="cat_button_text">Pick a random cat!</string>
+</resources>

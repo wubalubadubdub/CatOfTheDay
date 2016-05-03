@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     private ImageView mCatView;
     private Button mCatButton;
-    private String mDrawableName;
+    private String mDrawableName; // name of the file, either babygirl or rocko
+    private String mCatName; // for displaying the toast, either "Baby Girl" or "Rocko"
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,11 @@ public class MainActivity extends AppCompatActivity {
                 int outcome = RandomCat.getOutcome();
                 mCatView.setImageBitmap(getBitmap(outcome));
                 mCatButton.setEnabled(false);
+                mCatButton.setVisibility(View.INVISIBLE);
+
+                mCatName = (mDrawableName == "babygirl")? "Baby Girl" : "Rocko";
+                String toastText = String.format("Wow! %s is the cat of the day!", mCatName);
+                Toast.makeText(MainActivity.this, toastText, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -83,7 +90,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private Bitmap getBitmap(int outcome) {
-        mDrawableName = (outcome == 0)? "babygirl" : "rocko"; // 0 if babygirl, 1 if rocko
+        // use the file names as the possible values
+        mDrawableName = (outcome == 0)? "babygirl" : "rocko";
         int resId = getResources().getIdentifier(
                 mDrawableName, "drawable", getPackageName());
         mCatView = (ImageView) findViewById(R.id.cat_view);
